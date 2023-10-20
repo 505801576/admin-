@@ -18,9 +18,9 @@
           <el-input v-model="from.password" type="password" placeholder="请输入密码"/>
         </el-form-item>
 
-       <!--  <el-form-item prop="remember">
-          <el-checkbox>记住我</el-checkbox>
-        </el-form-item> -->
+        <el-form-item prop="remember">
+          <el-checkbox v-model="remember">记住我</el-checkbox>
+        </el-form-item>
 
         <el-form-item>
           <el-button type="primary" class="login_btn" @click="loginbtn">登录</el-button>
@@ -38,9 +38,10 @@ export default {
   name: 'Login',
    data () {
     return {
+      remember:false,
       from:{
-        username:'demo',
-        password:'zh@hm#23'
+        username:'',
+        password:''
       },
       rules:{
         username:[{ required: true, message: '请输入账号', trigger: 'blur' },],
@@ -48,6 +49,13 @@ export default {
       }
       
     }
+  },
+  mounted(){
+   const user = JSON.parse(localStorage.getItem('user'))
+   if(user){
+      this.from = user
+      this.remember = true
+   }  
   },
   methods:{
     //  登录的时候对整个表单进行校验
@@ -60,8 +68,17 @@ export default {
         setToken(res.data.token)
         this.$message.success(res.msg)
         this.$router.push('/')
+
+        if(this.remember){
+          /* 勾选了 就保存密码 */
+          localStorage.setItem('user',JSON.stringify(this.from))
+        } else {
+          /* 如果没有选择记住密码 则 清除 user  */
+          localStorage.removeItem('user')
+        }
         }
       })
+
     }
   }
 
