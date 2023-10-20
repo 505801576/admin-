@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import { getToken } from '@/utils/auth'
 
 export const routes = [
   {
@@ -121,7 +122,20 @@ const createRouter = () => new Router({
   routes: routes
 })
 
+/* 前置守卫 */
+// const whiteList = ['/login','/404']
 const router = createRouter()
+router.beforeEach((to,from,next)=>{
+  const token = getToken()
+  if(token || to.path === '/login'){
+     next()
+  } else if(to.path === '/404'){
+    next()
+  } else {
+    next('/login')
+  }
+})
+
 
 // 重置路由方法
 export function resetRouter() {
