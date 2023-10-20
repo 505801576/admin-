@@ -6,15 +6,13 @@
       <el-form ref="form" :model="from" :rules="rules">
         <el-form-item
           label="账号"
-          prop="username"
-        >
+          prop="username">
           <el-input v-model="from.username" placeholder="请输入账号" />
         </el-form-item>
 
         <el-form-item
           label="密码"
-          prop="password"
-        >
+          prop="password">
           <el-input v-model="from.password" type="password" placeholder="请输入密码"/>
         </el-form-item>
 
