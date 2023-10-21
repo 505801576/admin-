@@ -125,16 +125,7 @@ const createRouter = () => new Router({
 /* 前置守卫 */
 // const whiteList = ['/login','/404']
 const router = createRouter()
-router.beforeEach((to,from,next)=>{
-  const token = getToken()
-  if(token || to.path === '/login'){
-     next()
-  } else if(to.path === '/404'){
-    next()
-  } else {
-    next('/login')
-  }
-})
+
 
 
 // 重置路由方法
