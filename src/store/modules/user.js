@@ -6,5 +6,6 @@ export default {
   mutations: {
 
   },
+  /* 异步请求 接口 */
   actions: {}
 }
