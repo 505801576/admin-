@@ -13,7 +13,7 @@
     <el-button class="addition" size="small" type="primary" @click="Dialog('add')">添加楼宇</el-button>
    <!-- 表格 -->
    <el-table :data="data" stripe style="width: 100%" header-align='center'>
-      <el-table-column prop="1" label="序号" width="180"></el-table-column>
+      <el-table-column type="index" label="序号" width="180"></el-table-column>
       <el-table-column prop="name" label="楼宇名称" width="180"></el-table-column>
       <el-table-column prop="floors" label="层数"></el-table-column>
       <el-table-column prop="area" label="在管面积(m²)">

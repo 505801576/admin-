@@ -13,7 +13,7 @@
         <el-form-item
           label="密码"
           prop="password">
-          <el-input v-model="from.password" type="password" placeholder="请输入密码"/>
+          <el-input show-password v-model="from.password" type="password" placeholder="请输入密码"/>
         </el-form-item>
 
         <el-form-item prop="remember">
@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import { loginAPI } from '@/api/user'
-import { setToken } from '@/utils/auth'
 
 export default {
   name: 'Login',
@@ -48,6 +46,7 @@ export default {
     }
   },
   mounted(){
+    /* 判断是否 记住账号密码 */
    const user = JSON.parse(localStorage.getItem('user'))
    if(user){
       this.from = user
@@ -56,14 +55,11 @@ export default {
   },
   methods:{
     //  登录的时候对整个表单进行校验
-    loginbtn(){
-      this.$refs.form.validate(async(value)=>{
+    async loginbtn(){
+      await this.$refs.form.validate()
         /* 校验通过后 调接口登录 */
-        if(value){
-         const {username,password} = this.from
-        const res = await loginAPI({username,password})
-        setToken(res.data.token)
-        this.$message.success(res.msg)
+         await this.$store.dispatch('user/loginAction',this.from)
+        this.$message.success('登录成功')
         this.$router.push('/')
 
         if(this.remember){
@@ -74,12 +70,11 @@ export default {
           localStorage.removeItem('user')
         }
         }
-      })
 
     }
   }
 
-}
+
 
 </script>
 

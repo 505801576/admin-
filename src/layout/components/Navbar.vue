@@ -28,6 +28,7 @@ export default {
   methods: {
     // 退出登录
     logout() {
+      this.$store.commit('user/delToken')
       this.$router.push(`/login`)
       removeToken()
     }
